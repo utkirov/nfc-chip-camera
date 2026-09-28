@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <script>document.documentElement.classList.replace('no-js','js')</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Aziz Karimov — Feromon Verified</title>
+  <meta name="theme-color" content="#07080a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tailwind.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    #verify { transition: opacity .5s ease; }
+    #verify.done { opacity: 0; pointer-events: none; }
+    .pop { animation: pop .5s cubic-bezier(.2,1.4,.4,1) both; }
+    @keyframes pop { from { transform: scale(.4); opacity: 0 } to { transform: none; opacity: 1 } }
+  </style>
+</head>
+<body class="text-white/90 font-sans antialiased glow min-h-screen">
+
+<!--
+  Демо-визитка. В продакшене страница рендерится сервером по адресу
+  /c/{chipId}?e=...&c=... — параметры SUN-подписи чипа NTAG 424 DNA
+  проверяются на сервере, и только тогда показывается «Оригинал».
+-->
+
+<!-- Экран проверки -->
+<div id="verify" class="fixed inset-0 z-50 bg-ink grid place-items-center">
+  <div class="text-center">
+    <div id="vSpin" class="w-20 h-20 mx-auto rounded-full border-2 border-white/10 border-t-gold animate-spin"></div>
+    <div id="vOk" class="hidden verified-badge mx-auto pop">
+      <svg viewBox="0 0 24 24" class="w-10 h-10 text-verified" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+    </div>
+    <p id="vText" class="mt-6 text-white/60">Проверяем подлинность метки…</p>
+    <p id="vSub" class="text-xs tracking-widest text-white/40 mt-1"></p>
+  </div>
+</div>
+
+<main class="max-w-md mx-auto px-4 pt-6 pb-16">
+  <!-- Баннер верификации -->
+  <div class="flex items-center gap-3 rounded-2xl border border-verified/30 bg-verified/5 px-4 py-3">
+    <span class="w-8 h-8 rounded-full bg-verified/15 grid place-items-center shrink-0">
+      <svg viewBox="0 0 24 24" class="w-4 h-4 text-verified" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+    </span>
+    <div class="text-sm leading-tight">
+      <p class="text-verified font-semibold">Оригинал · Feromon Verified</p>
+      <p class="text-white/45 text-xs mt-0.5">Камера Sony A7 IV · чип #FR-04A7-19C2</p>
+    </div>
+  </div>
+
+  <!-- Профиль -->
+  <section class="text-center mt-8">
+    <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-gold to-amber-800 border-2 border-white/15 grid place-items-center font-display text-2xl text-ink">AK</div>
+    <h1 class="font-display text-2xl mt-4">Aziz Karimov</h1>
+    <p class="text-white/55 mt-1">Свадебный и портретный фотограф · Ташкент</p>
+  </section>
+
+  <!-- Портфолио -->
+  <section class="mt-8">
+    <p class="text-xs uppercase tracking-widest text-white/40 mb-3">Портфолио</p>
+    <div class="grid grid-cols-3 gap-2">
+      <div class="aspect-[3/4] rounded-xl bg-gradient-to-br from-rose-400/80 via-orange-300/60 to-amber-200/40"></div>
+      <div class="aspect-[3/4] rounded-xl bg-gradient-to-br from-sky-400/80 via-indigo-500/60 to-violet-900/60"></div>
+      <div class="aspect-[3/4] rounded-xl bg-gradient-to-br from-emerald-300/70 via-teal-600/60 to-slate-900"></div>
+    </div>
+  </section>
+
+  <!-- Кнопки -->
+  <section class="mt-8 space-y-3">
+    <a href="https://t.me/" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 h-14 rounded-2xl bg-gold text-ink font-semibold">Написать в Telegram</a>
+    <a href="https://instagram.com/" target="_blank" rel="noopener" class="flex items-center justify-center h-14 rounded-2xl border border-white/10 bg-white/5">Instagram</a>
+    <a href="tel:+998901234567" class="flex items-center justify-center h-14 rounded-2xl border border-white/10 bg-white/5">Позвонить</a>
+    <button id="saveContact" type="button" class="w-full h-14 rounded-2xl border border-white/10 bg-white/5">Сохранить контакт</button>
+  </section>
+
+  <p class="text-center text-xs text-white/30 mt-10">
+    Работает на <a href="index.html" class="text-gold/80">Feromon Camera</a> — NFC-метки для фототехники
+  </p>
+</main>
+
+<script>
+  // Имитация серверной проверки подписи чипа
+  setTimeout(() => {
+    document.getElementById('vSpin').classList.add('hidden');
+    document.getElementById('vOk').classList.remove('hidden');
+    document.getElementById('vText').textContent = 'Оригинал';
+    document.getElementById('vText').className = 'mt-6 font-display text-2xl text-verified';
+    document.getElementById('vSub').textContent = 'FEROMON VERIFIED';
+    if (navigator.vibrate) navigator.vibrate(40);
+  }, 900);
+  setTimeout(() => document.getElementById('verify').classList.add('done'), 2100);
+
+  // vCard для кнопки «Сохранить контакт»
+  document.getElementById('saveContact').onclick = () => {
+    const vcf = [
+      'BEGIN:VCARD', 'VERSION:3.0',
+      'FN:Aziz Karimov', 'N:Karimov;Aziz;;;',
+      'TITLE:Фотограф', 'TEL;TYPE=CELL:+998901234567',
+      'URL:' + location.href, 'END:VCARD',
+    ].join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([vcf], { type: 'text/vcard' }));
+    a.download = 'aziz-karimov.vcf';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+</script>
+</body>
+</html>

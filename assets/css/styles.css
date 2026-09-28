@@ -1,0 +1,125 @@
+:root {
+  --bg: #07080a;
+  --gold: #e8b86d;
+  --verified: #3dffa2;
+}
+
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+body { background: var(--bg); }
+
+.font-display { font-family: 'Unbounded', system-ui, sans-serif; }
+
+/* Фоновое свечение и сетка */
+.glow {
+  background-image:
+    radial-gradient(600px 300px at 20% 0%, rgba(232,184,109,.14), transparent 70%),
+    radial-gradient(500px 300px at 90% 20%, rgba(61,255,162,.08), transparent 70%);
+}
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 1.25rem;
+}
+.text-gradient {
+  background: linear-gradient(90deg, #fff 0%, var(--gold) 60%, #fff 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ---------- Мокап телефона в hero: цикл «касание → Оригинал → визитка» ---------- */
+.phone {
+  width: 250px; height: 510px; border-radius: 40px; padding: 10px;
+  background: #111; border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 40px 120px -20px rgba(232,184,109,.25), inset 0 0 0 2px #000;
+  position: relative;
+}
+.phone-screen {
+  width: 100%; height: 100%; border-radius: 32px; overflow: hidden;
+  background: #0c0d10; position: relative;
+}
+.phone-notch {
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  width: 80px; height: 22px; background: #000; border-radius: 12px; z-index: 5;
+}
+
+.scene { position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; opacity: 0; animation: 9s infinite; }
+.scene-tap      { animation-name: sceneTap; }
+.scene-verified { animation-name: sceneVerified; }
+.scene-card     { animation-name: sceneCard; justify-content: flex-start; }
+
+@keyframes sceneTap      { 0%,30% {opacity:1} 34%,100% {opacity:0} }
+@keyframes sceneVerified { 0%,32% {opacity:0; transform:scale(.9)} 36%,58% {opacity:1; transform:scale(1)} 62%,100% {opacity:0} }
+@keyframes sceneCard     { 0%,60% {opacity:0; transform:translateY(20px)} 64%,96% {opacity:1; transform:none} 100% {opacity:0} }
+
+.nfc-wave {
+  position: absolute; border: 2px solid var(--gold); border-radius: 50%;
+  width: 60px; height: 60px; opacity: 0; animation: wave 1.8s infinite ease-out;
+}
+.nfc-wave:nth-child(2) { animation-delay: .6s; }
+.nfc-wave:nth-child(3) { animation-delay: 1.2s; }
+@keyframes wave { 0% {transform:scale(.6); opacity:.9} 100% {transform:scale(2.6); opacity:0} }
+
+.verified-badge {
+  width: 84px; height: 84px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(61,255,162,.25), rgba(61,255,162,.05));
+  border: 2px solid var(--verified);
+  box-shadow: 0 0 40px rgba(61,255,162,.45);
+  display: grid; place-items: center;
+}
+
+/* Чип-размеры */
+.chip-visual {
+  width: 150px; height: 150px; border-radius: 22px;
+  background: linear-gradient(135deg, #1b1c20, #0e0f12);
+  border: 1px solid rgba(232,184,109,.4);
+  box-shadow: inset 0 0 0 10px rgba(232,184,109,.06), 0 20px 60px -10px rgba(232,184,109,.25);
+}
+
+/* Слайдер калькулятора */
+input[type=range].fr-range { -webkit-appearance: none; appearance: none; width: 100%; height: 6px;
+  border-radius: 999px; background: rgba(255,255,255,.1); outline: none; }
+input[type=range].fr-range::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px;
+  border-radius: 50%; background: var(--gold); border: 4px solid #07080a; box-shadow: 0 0 0 2px var(--gold); cursor: pointer; }
+input[type=range].fr-range::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%;
+  background: var(--gold); border: 4px solid #07080a; cursor: pointer; }
+
+.tier.active { border-color: var(--gold); background: rgba(232,184,109,.08); }
+.tier.active .tier-dot { background: var(--gold); }
+
+/* Поля форм */
+.fr-input {
+  width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+  border-radius: .85rem; padding: .8rem 1rem; color: #fff; font-size: 16px; /* 16px — без зума на iOS */
+  transition: border-color .15s, background .15s;
+}
+.fr-input:focus { outline: none; border-color: var(--gold); background: rgba(255,255,255,.06); }
+.fr-input.invalid { border-color: #f87171; }
+
+.photo-slot {
+  aspect-ratio: 1; border-radius: .9rem; border: 1.5px dashed rgba(255,255,255,.18);
+  background: rgba(255,255,255,.03) center/cover no-repeat; position: relative; cursor: pointer;
+  display: grid; place-items: center; transition: border-color .15s;
+}
+.photo-slot:hover { border-color: var(--gold); }
+.photo-slot.filled { border-style: solid; border-color: rgba(255,255,255,.12); }
+.photo-slot.filled .slot-hint { display: none; }
+
+.design-swatch { border: 2px solid transparent; }
+.design-swatch.selected { border-color: var(--gold); }
+
+.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.js .reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scene, .nfc-wave { animation: none !important; }
+  .scene-card { opacity: 1; }
+  .js .reveal { opacity: 1; transform: none; }
+}
