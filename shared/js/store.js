@@ -1,11 +1,11 @@
 /*
- * Feromon — мок-хранилище.
+ * Camera Check — мок-хранилище.
  * Пока нет сервера, «база данных» живёт в localStorage браузера.
  * Админка и страница проверки открываются с одного домена и видят одни и те же данные.
  * В продакшене этот файл заменяется вызовами API (fetch('/api/...')).
  */
 (function () {
-  const KEY = 'feromon.db.v1';
+  const KEY = 'cameracheck.db.v1';
 
   const now = Date.now();
   const day = 864e5;
@@ -13,16 +13,16 @@
 
   const seed = () => ({
     settings: {
-      shopName: 'Feromon Camera',
+      shopName: 'Camera Check',
       phone: '+998 90 123 45 67',
-      telegram: 'feromon_camera',
-      instagram: 'feromon.camera',
+      telegram: 'camera_check',
+      instagram: 'camera.check',
       address: 'Ташкент, ул. Амира Темура, 15',
-      domain: 'check.feromon.uz',
+      domain: 'cameracheck.uz',
     },
     cameras: [
       {
-        id: 'FC-0001', brand: 'Canon', model: 'EOS 5D Mark IV', serial: '032021004521',
+        id: 'CC-0001', brand: 'Canon', model: 'EOS 5D Mark IV', serial: '032021004521',
         type: 'Зеркальная', condition: 'used', shutter: 18400,
         kit: ['Body', 'Canon EF 24-105mm f/4L IS II', 'Аккумулятор LP-E6N ×2', 'Зарядка', 'Ремень'],
         description: 'Полнокадровая зеркалка в отличном состоянии. Матрица чистая, прошивка актуальная.',
@@ -32,7 +32,7 @@
         createdAt: iso(now - 50 * day),
       },
       {
-        id: 'FC-0002', brand: 'Sony', model: 'Alpha a58', serial: '3845120',
+        id: 'CC-0002', brand: 'Sony', model: 'Alpha a58', serial: '3845120',
         type: 'Зеркальная (SLT)', condition: 'used', shutter: 9200,
         kit: ['Body', 'Sony DT 18-55mm', 'Аккумулятор', 'Зарядка'],
         description: 'Отличная камера для старта. Полный комплект, без царапин на экране.',
@@ -42,7 +42,7 @@
         createdAt: iso(now - 12 * day),
       },
       {
-        id: 'FC-0003', brand: 'Nikon', model: 'D3100', serial: '6021784',
+        id: 'CC-0003', brand: 'Nikon', model: 'D3100', serial: '6021784',
         type: 'Зеркальная', condition: 'used', shutter: 21000,
         kit: ['Body', 'AF-S 18-55mm VR', 'Аккумулятор EN-EL14', 'Сумка'],
         description: 'Надёжная зеркалка, идеально для обучения.',
@@ -52,7 +52,7 @@
         createdAt: iso(now - 215 * day),
       },
       {
-        id: 'FC-0004', brand: 'Fujifilm', model: 'X100', serial: '1AB09234',
+        id: 'CC-0004', brand: 'Fujifilm', model: 'X100', serial: '1AB09234',
         type: 'Компактная', condition: 'new', shutter: 120,
         kit: ['Body', 'Бленда', 'Аккумулятор', 'Коробка и документы'],
         description: 'Легендарный компакт с фиксированным объективом 23mm f/2. Как новый.',
@@ -62,7 +62,7 @@
         createdAt: iso(now - 4 * day),
       },
       {
-        id: 'FC-0005', brand: 'Canon', model: 'EOS 7D', serial: '0480105512',
+        id: 'CC-0005', brand: 'Canon', model: 'EOS 7D', serial: '0480105512',
         type: 'Зеркальная', condition: 'used', shutter: 54000,
         kit: ['Body', 'EF-S 15-85mm', 'Батарейный блок BG-E7'],
         description: 'Камера заблокирована владельцем: заявлена как украденная.',
@@ -72,7 +72,7 @@
         createdAt: iso(now - 96 * day),
       },
       {
-        id: 'FC-0006', brand: 'Sony', model: 'NEX-5N', serial: '5093311',
+        id: 'CC-0006', brand: 'Sony', model: 'NEX-5N', serial: '5093311',
         type: 'Беззеркальная', condition: 'used', shutter: 6300,
         kit: ['Body', 'E 18-55mm', 'Вспышка'],
         description: 'Компактная беззеркалка. Чип ещё не привязан.',
@@ -82,7 +82,7 @@
         createdAt: iso(now - 1 * day),
       },
       {
-        id: 'FC-0007', brand: 'Leica', model: 'III (1936)', serial: '186724',
+        id: 'CC-0007', brand: 'Leica', model: 'III (1936)', serial: '186724',
         type: 'Дальномер, плёнка', condition: 'vintage', shutter: null,
         kit: ['Body', 'Elmar 50mm f/3.5', 'Кожаный кофр'],
         description: 'Коллекционный экземпляр. Шторки и дальномер обслужены в 2025 году.',
@@ -92,7 +92,7 @@
         createdAt: iso(now - 22 * day),
       },
       {
-        id: 'FC-0008', brand: 'Pentax', model: 'K-5', serial: '4118270',
+        id: 'CC-0008', brand: 'Pentax', model: 'K-5', serial: '4118270',
         type: 'Зеркальная', condition: 'used', shutter: 31000,
         kit: ['Body', 'smc DA 18-55mm WR'],
         description: 'Защищённый от погоды корпус, магниевый сплав.',
@@ -109,10 +109,10 @@
     const cities = ['Ташкент', 'Ташкент', 'Ташкент', 'Самарканд', 'Бухара', 'Наманган', 'Андижан', 'Фергана'];
     const devices = ['iPhone', 'iPhone', 'Android', 'Android', 'Android'];
     const plan = [
-      ['FC-0001', 'original'], ['FC-0003', 'original'], ['FC-0002', 'original'], ['FC-0001', 'replay'],
-      ['FC-0004', 'original'], ['FC-0005', 'blocked'], ['FC-0003', 'clone'], ['FC-0007', 'original'],
-      ['FC-0001', 'original'], ['FC-0008', 'original'], ['FC-0002', 'unsigned'], ['FC-0003', 'original'],
-      ['FC-0001', 'original'], ['FC-0007', 'original'], ['FC-0005', 'blocked'], ['FC-0002', 'original'],
+      ['CC-0001', 'original'], ['CC-0003', 'original'], ['CC-0002', 'original'], ['CC-0001', 'replay'],
+      ['CC-0004', 'original'], ['CC-0005', 'blocked'], ['CC-0003', 'clone'], ['CC-0007', 'original'],
+      ['CC-0001', 'original'], ['CC-0008', 'original'], ['CC-0002', 'unsigned'], ['CC-0003', 'original'],
+      ['CC-0001', 'original'], ['CC-0007', 'original'], ['CC-0005', 'blocked'], ['CC-0002', 'original'],
     ];
     return plan.map(([cameraId, result], i) => ({
       id: 's' + (i + 1),
@@ -143,7 +143,7 @@
     },
     nextCameraId(db) {
       const max = db.cameras.reduce((m, c) => Math.max(m, +c.id.split('-')[1] || 0), 0);
-      return 'FC-' + String(max + 1).padStart(4, '0');
+      return 'CC-' + String(max + 1).padStart(4, '0');
     },
     camera(db, id) {
       return db.cameras.find(c => c.id.toUpperCase() === String(id || '').toUpperCase());
@@ -171,6 +171,6 @@
     notfound: { label: 'Не найдена',        cls: 'bg-white/10 text-white/60' },
   };
 
-  window.FeromonStore = Store;
-  window.FeromonDict = { STATUS, CONDITION, RESULT };
+  window.CameraCheckStore = Store;
+  window.CameraCheckDict = { STATUS, CONDITION, RESULT };
 })();

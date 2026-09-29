@@ -2,7 +2,7 @@
  * Логика проверки метки («сервер» в мок-режиме).
  *
  * Схема для простого чипа NTAG213/215/216 (без DNA):
- *   В чип записывается ссылка  https://check.feromon.uz/?c=FC-0001&m=
+ *   В чип записывается ссылка  https://cameracheck.uz/?c=CC-0001&m=
  *   и включается встроенная функция чипа «UID + counter mirror»:
  *   при КАЖДОМ чтении чип сам дописывает в конец ссылки свой заводской UID
  *   и счётчик касаний:  ?m=04A1B2C3D4E5F6x00000F
@@ -41,7 +41,7 @@
    * @returns {{result:string, camera?:object, counter?:number, scanNo?:number}}
    */
   function verify(db, { id, m }, { log = true } = {}) {
-    const S = window.FeromonStore;
+    const S = window.CameraCheckStore;
     const camera = S.camera(db, id);
     let result;
     let counter;
@@ -88,5 +88,5 @@
     };
   }
 
-  window.FeromonVerify = { verify, parseMirror, buildMirror, demoLinks };
+  window.CameraCheckVerify = { verify, parseMirror, buildMirror, demoLinks };
 })();

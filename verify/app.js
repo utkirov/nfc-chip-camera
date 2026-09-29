@@ -1,7 +1,7 @@
 (() => {
-  const S = window.FeromonStore;
-  const V = window.FeromonVerify;
-  const { STATUS, CONDITION } = window.FeromonDict;
+  const S = window.CameraCheckStore;
+  const V = window.CameraCheckVerify;
+  const { STATUS, CONDITION } = window.CameraCheckDict;
   const app = document.getElementById('app');
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -24,7 +24,7 @@
   const RESULT_VIEW = {
     original: {
       tone: 'ok', color: 'text-verified', ring: 'border-verified/60 bg-verified/10 shadow-[0_0_60px_rgba(61,255,162,.35)]', icon: 'check',
-      title: 'Оригинал', sub: 'FEROMON VERIFIED',
+      title: 'Оригинал', sub: 'CAMERA CHECK VERIFIED',
       text: 'Метка подлинная и привязана именно к этой камере.',
       showFull: true,
     },
@@ -54,7 +54,7 @@
     },
     notfound: {
       tone: 'bad', color: 'text-white/70', ring: 'border-white/30 bg-white/5', icon: 'q',
-      title: 'Метка не зарегистрирована', sub: 'НЕТ В БАЗЕ FEROMON',
+      title: 'Метка не зарегистрирована', sub: 'НЕТ В БАЗЕ CAMERA CHECK',
       text: 'Такой камеры нет в нашей базе. Проверьте ID или свяжитесь с продавцом.',
       showFull: false,
     },
@@ -74,7 +74,7 @@
 
       <ol class="mt-10 space-y-3">
         ${[
-          ['Найдите метку', 'Значок Feromon на корпусе камеры'],
+          ['Найдите метку', 'Значок Camera Check на корпусе камеры'],
           ['Приложите телефон', 'iPhone XS и новее или Android с включённым NFC'],
           ['Получите результат', '«Оригинал» и паспорт камеры за 1 секунду'],
         ].map(([t, d], i) => `
@@ -87,7 +87,7 @@
       <form id="idForm" class="card p-5 mt-8">
         <label for="camId" class="text-sm text-white/60">Нет NFC? Введите ID камеры</label>
         <div class="flex gap-2 mt-2">
-          <input id="camId" class="fr-input uppercase" placeholder="FC-0001" autocomplete="off" autocapitalize="characters">
+          <input id="camId" class="fr-input uppercase" placeholder="CC-0001" autocomplete="off" autocapitalize="characters">
           <button class="btn btn-gold shrink-0">Найти</button>
         </div>
         <p class="text-xs text-white/35 mt-2">Поиск по ID показывает данные, но не подтверждает подлинность.</p>

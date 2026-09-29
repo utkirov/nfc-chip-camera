@@ -1,7 +1,7 @@
 (() => {
-  const S = window.FeromonStore;
-  const V = window.FeromonVerify;
-  const { STATUS, CONDITION, RESULT } = window.FeromonDict;
+  const S = window.CameraCheckStore;
+  const V = window.CameraCheckVerify;
+  const { STATUS, CONDITION, RESULT } = window.CameraCheckDict;
   const $ = id => document.getElementById(id);
 
   let db = S.load();
@@ -47,14 +47,14 @@
   $('modal').addEventListener('click', e => { if (e.target.id === 'modal' || e.target.closest('[data-close]')) closeModal(); });
 
   /* ---------- авторизация (мок) ---------- */
-  const AUTH_KEY = 'feromon.admin.session';
+  const AUTH_KEY = 'cameracheck.admin.session';
   const isAuthed = () => { try { return sessionStorage.getItem(AUTH_KEY) === '1'; } catch (e) { return true; } };
 
   $('loginForm').onsubmit = e => {
     e.preventDefault();
     const f = e.target.elements;
     // TODO(backend): POST /api/auth/login, httpOnly-cookie сессии
-    if (f.login.value.trim() === 'admin' && f.password.value === 'feromon') {
+    if (f.login.value.trim() === 'admin' && f.password.value === 'camcheck') {
       try { sessionStorage.setItem(AUTH_KEY, '1'); } catch (err) {}
       boot();
     } else {

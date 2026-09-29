@@ -1,5 +1,5 @@
 {
-  "name": "feromon-camera",
+  "name": "camera-check",
   "private": true,
   "scripts": {
     "build:css": "tailwindcss -i shared/css/tailwind.src.css -o shared/css/tailwind.css --minify",
