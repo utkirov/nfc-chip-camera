@@ -1,0 +1,12 @@
+{
+  "name": "feromon-camera",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i shared/css/tailwind.src.css -o shared/css/tailwind.css --minify",
+    "dev:css": "tailwindcss -i shared/css/tailwind.src.css -o shared/css/tailwind.css --watch",
+    "serve": "python3 -m http.server 8080"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

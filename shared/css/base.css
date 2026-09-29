@@ -1,0 +1,55 @@
+/* Общие стили обоих сайтов (всё, что неудобно делать классами Tailwind) */
+:root { --gold: #e8b86d; --verified: #3dffa2; --danger: #f87171; --warn: #fbbf24; }
+html { -webkit-tap-highlight-color: transparent; color-scheme: dark; }
+body { background: #0a0b0d; color: rgba(255,255,255,.9); }
+
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 1.25rem;
+}
+
+.fr-input {
+  width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+  border-radius: .8rem; padding: .7rem .95rem; color: #fff; font-size: 16px;
+  transition: border-color .15s, background .15s;
+}
+.fr-input:focus { outline: none; border-color: var(--gold); background: rgba(255,255,255,.06); }
+.fr-input::placeholder { color: rgba(255,255,255,.3); }
+select.fr-input option { background: #111317; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  border-radius: 999px; padding: .7rem 1.2rem; font-weight: 600; font-size: .9rem; transition: filter .15s, background .15s; }
+.btn-gold { background: var(--gold); color: #0a0b0d; }
+.btn-gold:hover { filter: brightness(1.08); }
+.btn-ghost { border: 1px solid rgba(255,255,255,.14); }
+.btn-ghost:hover { background: rgba(255,255,255,.05); }
+.btn-danger { border: 1px solid rgba(248,113,113,.4); color: #fca5a5; }
+.btn-danger:hover { background: rgba(248,113,113,.08); }
+
+/* Прожектор под фото камеры с прозрачным фоном */
+.spotlight {
+  background:
+    radial-gradient(closest-side, rgba(232,184,109,.22), transparent 70%) center 60% / 90% 70% no-repeat,
+    radial-gradient(ellipse at 50% 100%, rgba(255,255,255,.06), transparent 60%);
+}
+.spotlight.ok   { background:
+    radial-gradient(closest-side, rgba(61,255,162,.18), transparent 70%) center 60% / 90% 70% no-repeat,
+    radial-gradient(ellipse at 50% 100%, rgba(255,255,255,.06), transparent 60%); }
+.spotlight.bad  { background:
+    radial-gradient(closest-side, rgba(248,113,113,.2), transparent 70%) center 60% / 90% 70% no-repeat; }
+.cam-shadow { filter: drop-shadow(0 30px 30px rgba(0,0,0,.6)); }
+.cam-shadow.dim { filter: grayscale(.8) brightness(.75) drop-shadow(0 30px 30px rgba(0,0,0,.6)); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@keyframes pop { from { transform: scale(.5); opacity: 0 } to { transform: none; opacity: 1 } }
+.pop { animation: pop .55s cubic-bezier(.2,1.4,.4,1) both; }
+@keyframes fadeUp { from { transform: translateY(16px); opacity: 0 } to { transform: none; opacity: 1 } }
+.fade-up { animation: fadeUp .6s ease both; }
+@keyframes ring { 0% { transform: scale(.6); opacity: .9 } 100% { transform: scale(2.4); opacity: 0 } }
+.ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid currentColor; animation: ring 1.8s ease-out infinite; }
+.ring:nth-child(2) { animation-delay: .6s; } .ring:nth-child(3) { animation-delay: 1.2s; }
+
+@media (prefers-reduced-motion: reduce) { .pop, .fade-up, .ring { animation: none !important; } }

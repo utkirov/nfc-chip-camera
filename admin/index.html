@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Админ-панель — Feromon Camera</title>
+  <meta name="theme-color" content="#0a0b0d">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/css/tailwind.css">
+  <link rel="stylesheet" href="../shared/css/base.css">
+</head>
+<body class="font-sans antialiased min-h-screen">
+
+<!-- ============ ВХОД ============ -->
+<div id="login" class="hidden min-h-screen grid place-items-center px-4">
+  <form id="loginForm" class="card w-full max-w-sm p-7">
+    <div class="flex items-center gap-2">
+      <span class="w-9 h-9 rounded-xl bg-gold/15 border border-gold/40 grid place-items-center">
+        <svg viewBox="0 0 24 24" class="w-4 h-4 text-gold" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 8.5a8 8 0 0 1 0 7M9.5 6a12 12 0 0 1 0 12M13 4a16 16 0 0 1 0 16"/></svg>
+      </span>
+      <span class="font-display text-sm">FEROMON<span class="text-gold">.</span> <span class="text-white/40">admin</span></span>
+    </div>
+    <h1 class="font-display text-xl mt-8">Вход в панель</h1>
+    <p class="text-sm text-white/45 mt-1">Демо-доступ: <span class="font-mono text-white/70">admin</span> / <span class="font-mono text-white/70">feromon</span></p>
+    <label class="block mt-6"><span class="text-sm text-white/60">Логин</span>
+      <input name="login" class="fr-input mt-1.5" autocomplete="username" value="admin"></label>
+    <label class="block mt-4"><span class="text-sm text-white/60">Пароль</span>
+      <input name="password" type="password" class="fr-input mt-1.5" autocomplete="current-password"></label>
+    <p id="loginError" class="hidden text-sm text-red-400 mt-3">Неверный логин или пароль</p>
+    <button class="btn btn-gold w-full mt-6 !py-3">Войти</button>
+  </form>
+</div>
+
+<!-- ============ ПАНЕЛЬ ============ -->
+<div id="shell" class="hidden min-h-screen lg:grid lg:grid-cols-[240px_1fr]">
+  <aside class="hidden lg:flex flex-col border-r border-white/5 bg-panel/60 p-4 sticky top-0 h-screen">
+    <a href="#/" class="flex items-center gap-2 px-2 h-10">
+      <span class="w-8 h-8 rounded-lg bg-gold/15 border border-gold/40 grid place-items-center">
+        <svg viewBox="0 0 24 24" class="w-4 h-4 text-gold" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 8.5a8 8 0 0 1 0 7M9.5 6a12 12 0 0 1 0 12M13 4a16 16 0 0 1 0 16"/></svg>
+      </span>
+      <span class="font-display text-[13px]">FEROMON<span class="text-gold">.</span></span>
+    </a>
+    <nav id="sideNav" class="mt-8 space-y-1 text-sm"></nav>
+    <div class="mt-auto space-y-1 text-sm">
+      <a href="../verify/" target="_blank" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:bg-white/5">↗ Сайт проверки</a>
+      <button data-logout class="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:bg-white/5">⎋ Выйти</button>
+    </div>
+  </aside>
+
+  <div class="min-w-0">
+    <!-- Мобильная шапка -->
+    <header class="lg:hidden sticky top-0 z-30 backdrop-blur-xl bg-ink/80 border-b border-white/5 h-14 px-4 flex items-center justify-between">
+      <span class="font-display text-[13px]">FEROMON<span class="text-gold">.</span> <span class="text-white/40">admin</span></span>
+      <div class="flex items-center gap-2">
+        <a href="../verify/" target="_blank" class="text-xs text-white/50 px-2 py-1">Сайт ↗</a>
+        <button data-logout class="text-xs text-white/50 px-2 py-1">Выйти</button>
+      </div>
+    </header>
+
+    <main id="view" class="px-4 md:px-8 py-6 md:py-8 pb-28 lg:pb-10 max-w-6xl"></main>
+  </div>
+
+  <!-- Мобильная навигация -->
+  <nav id="tabNav" class="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-ink/90 backdrop-blur-xl border-t border-white/10 grid grid-cols-4 text-[11px]" style="padding-bottom:env(safe-area-inset-bottom)"></nav>
+</div>
+
+<!-- Модальное окно -->
+<div id="modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm items-end sm:items-center justify-center p-0 sm:p-4">
+  <div id="modalBody" class="bg-panel border border-white/10 w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[92vh] overflow-y-auto"></div>
+</div>
+
+<!-- Тост -->
+<div id="toast" class="hidden fixed z-[60] left-1/2 -translate-x-1/2 bottom-24 lg:bottom-8 px-4 py-3 rounded-2xl bg-white text-ink text-sm font-medium shadow-2xl"></div>
+
+<script src="../shared/js/store.js"></script>
+<script src="../shared/js/verify-engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
